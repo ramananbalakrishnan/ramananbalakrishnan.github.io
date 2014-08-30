@@ -1,0 +1,43 @@
+# Site settings
+title: 'A place on the web'
+description: 'things I talk about'
+name: 'Ramanan Balakrishnan'
+author: 'Ramanan Balakrishnan'
+author_image: 'https://avatars2.githubusercontent.com/u/8701515'
+email: ...@...com
+
+logo: '/assets/images/logo.png'
+cover: '/assets/images/cover.jpg'
+
+url: 'https://ramananbalakrishnan.github.io'
+baseurl: ''
+permalink: pretty
+paginate:	5
+
+twitter_handle: '@ramananb'
+disqus_shortname: 'ramananbalakrishnan'
+google_analytics_id: 'UA-79560961-1'
+social:
+  - icon:	twitter
+    url:	https://twitter.com/@ramananb
+    desc: Follow me on twitter
+    share_url: http://twitter.com/share
+    share_title: ?text=
+    share_link: '&amp;url='
+
+  - icon:	github
+    url:	https://github.com/ramananbalakrishnan
+    desc:	Fork me on github
+    share_url:
+    share_title:
+    share_link:
+
+gems:
+  - jekyll-feed
+  - jekyll-time-to-read
+  - jemoji
+  - jekyll-paginate
+
+kramdown:
+  input: GFM
+  highlighter: rouge

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A place on the web</title>
+    <description>things I talk about</description>
+    <link>https://ramananbalakrishnan.github.io/</link>
+    <atom:link href="https://ramananbalakrishnan.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 19 Jun 2016 15:58:14 +0530</pubDate>
+    <lastBuildDate>Sun, 19 Jun 2016 15:58:14 +0530</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Towards a prettier git status</title>
+        <description>&lt;p&gt;Using a version control system is almost always a good idea, and at &lt;a href=&quot;https://semantics3.com&quot;&gt;Semantics3&lt;/a&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; has proven to a life-saver many times over. Given our service oriented  architecture (coming soon to a browser near you), and our per-seat pricing on  GitHub, our trigger-happy developers have ballooned our repository count. With  collaboration at an all-time high and each dev handling multiple repos, it becomes difficult to keep a handle on the current status of our repositories.&lt;/p&gt;
+
+&lt;p&gt;Good ol’ &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; only gives limited information and is not particularly git-aware.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/git-multi-status/ls.gif&quot; alt=&quot;ls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, enter our handy script &lt;a href=&quot;https://gist.github.com/ramananbalakrishnan/be74b96ab1700114493a&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git-multi-status&lt;/code&gt;&lt;/a&gt;. The small script searches through folders, runs a few git commands to update your repositories and reports on their status.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/git-multi-status/gms.gif&quot; alt=&quot;gms&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is of-course a very simple script which looks for &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt; folders and afew particular keywords that turn up when running &lt;code class=&quot;highlighter-rouge&quot;&gt;git status&lt;/code&gt;. But this simplicity is part of what we like in its operation - the labels &lt;code class=&quot;highlighter-rouge&quot;&gt;Untracked&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Modified&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Staged&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Unpushed&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Unmerged&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Up-to-date&lt;/code&gt; provide just enough information to be processed at a glance.&lt;/p&gt;
+
+&lt;p&gt;Some notes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The script is based on a &lt;a href=&quot;https://gist.github.com/jcordasc/389478&quot;&gt;gist by jcordasc&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;BSD / OS X users might experience difficulties because the &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt; command in  this script was written for use with GNU find&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;originally appeared in the &lt;a href=&quot;https://engineering.semantics3.com/2016/05/22/ssh-local-port-forwarding/&quot;&gt;Engineering@Semantics3&lt;/a&gt; blog&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sun, 05 Jun 2016 00:00:00 +0530</pubDate>
+        <link>https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status/</link>
+        <guid isPermaLink="true">https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Getting beyond those pesky iptables rules</title>
+        <description>&lt;p&gt;Most of the development at &lt;a href=&quot;https://semantics3.com&quot;&gt;Semantics3&lt;/a&gt; occurs on a shared development machine hosted at AWS. While this helps us control our dev environment with high precision, it causes some difficulties when trying to test features on a local computer. For example, connecting to a test database might be impossible, given that most ports from the dev machine are cutoff from the outside world.&lt;/p&gt;
+
+&lt;p&gt;This is where SSH comes to the rescue using its local port forwarding or “outbound” tunneling feature.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ssh -L [bind_address:]port:host:hostport [user@]hostname
+    Specifies that the given port on the local (client) host is
+    to be forwarded to the given host and port on the remote side.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As shown below, SSH can be used to setup a tunnel to access &lt;code class=&quot;highlighter-rouge&quot;&gt;private-db:5432&lt;/code&gt; from your &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost&lt;/code&gt; via a &lt;code class=&quot;highlighter-rouge&quot;&gt;public-host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                                +-----------------------------------+
+                                |                                   |
++-----------------+          +-------------+     +-----------------+|
+| localhost:15432 |---SSH---\| public-host |     | private-db:5432 ||
+|            ==============================|==============&amp;gt;        ||
+|                 |---------/|             |     |                 ||
++-----------------+          +-------------+     +-----------------+|
+                                |                                   |
+                                |        private network            |
+                                +-----------------------------------+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The command to setup the tunnel above is&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ssh -L 15432:private-db:5432 user@public-host
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, you can simply use your client of choice to connect to the database as if it were on your local computer.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ psql -h localhost -p 15432 -d testdatabase
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A few notes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AllowTCPForwarding&lt;/code&gt; needs to be set to &lt;code class=&quot;highlighter-rouge&quot;&gt;yes&lt;/code&gt; in your server’s ssh config for this to work.&lt;/li&gt;
+  &lt;li&gt;Additional flags &lt;code class=&quot;highlighter-rouge&quot;&gt;-nNT&lt;/code&gt; can be used to suppress any output and avoid terminal allocation, as we just need port forwarding.&lt;/li&gt;
+  &lt;li&gt;If this piqued your interest, I also highly recommend the talk  &lt;a href=&quot;http://bjeanes.com/2012/11/talk-ssh-can-do-that&quot;&gt;The Black Magic of SSH / SSH Can Do That?&lt;/a&gt; by &lt;a href=&quot;https://github.com/bjeanes&quot;&gt;bjeanes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;originally appeared in the &lt;a href=&quot;https://engineering.semantics3.com/2016/05/22/ssh-local-port-forwarding/&quot;&gt;Engineering@Semantics3&lt;/a&gt; blog&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sun, 22 May 2016 00:00:00 +0530</pubDate>
+        <link>https://ramananbalakrishnan.github.io/2016/05/22/ssh-local-port-forwarding/</link>
+        <guid isPermaLink="true">https://ramananbalakrishnan.github.io/2016/05/22/ssh-local-port-forwarding/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

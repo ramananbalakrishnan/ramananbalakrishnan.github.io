@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Towards a prettier git status</title>
+  <meta name="description" content="Using a version control system is almost always a good idea, and at Semantics3, git has proven to a life-saver many times over. Given our service oriented  architecture (coming soon to a browser ne..." />
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ramananb" />
+    <meta name="twitter:title" content="Towards a prettier git status" />
+    <meta name="twitter:image" content="https://ramananbalakrishnan.github.io/assets/images/logo.png" />
+    
+    <meta name="twitter:description"  content="Using a version control system is almost always a good idea, and at Semantics3, git has proven to a life-saver many times over. Given our service oriented  architecture (coming soon to a browser ne..." />
+    
+  
+  
+  <meta property="og:site_name" content="A place on the web" />
+  <meta property="og:title" content="Towards a prettier git status"/>
+  
+  <meta property="og:description" content="Using a version control system is almost always a good idea, and at Semantics3, git has proven to a life-saver many times over. Given our service oriented  architecture (coming soon to a browser ne..." />
+  
+  <meta property="og:image" content="https://ramananbalakrishnan.github.io/assets/images/logo.png" />
+  <meta property="og:url" content="https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status/" >
+  <meta property="og:type" content="blog" />
+  <meta property="article:published_time" content="2016-06-05T00:00:00+05:30">
+
+  <link rel="canonical" href="https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status/"/>
+  <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png"/>
+  <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Linux+Libertine:400,400i,700,700i/Open+Sans:400,400i,700,700i">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+  <link rel="stylesheet" type="text/css" media="print" href="/css/print.css" />
+</head>
+
+  <body itemscope itemtype="http://schema.org/Article">
+    <main class="content" role="main">
+      <article class="post">
+        
+        <div class="noarticleimage">
+          <div class="post-meta">
+            <h1 class="post-title">Towards a prettier git status</h1>
+            <div class="cf post-meta-text">
+              <div class="author-image" style="background-image: url(https://avatars2.githubusercontent.com/u/8701515)">Blog Logo</div>
+              <h4 class="author-name" itemprop="author" itemscope itemtype="http://schema.org/Person">Ramanan Balakrishnan</h4>
+              on
+              <time datetime="2016-06-05T00:00:00+05:30">05 Jun 2016</time>
+              &middot; 1 minute read
+              <!-- , tagged on <span class="post-tag-">, <a href="/tag/"></a></span> -->
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        
+        <section class="post-content">
+          <div class="post-reading">
+            <span class="post-reading-time"></span> read
+          </div>
+          <a name="topofpage"></a>
+          <p>Using a version control system is almost always a good idea, and at <a href="https://semantics3.com">Semantics3</a>, <code class="highlighter-rouge">git</code> has proven to a life-saver many times over. Given our service oriented  architecture (coming soon to a browser near you), and our per-seat pricing on  GitHub, our trigger-happy developers have ballooned our repository count. With  collaboration at an all-time high and each dev handling multiple repos, it becomes difficult to keep a handle on the current status of our repositories.</p>
+
+<p>Good ol’ <code class="highlighter-rouge">ls</code> only gives limited information and is not particularly git-aware.</p>
+
+<p><img src="/assets/images/git-multi-status/ls.gif" alt="ls" /></p>
+
+<p>So, enter our handy script <a href="https://gist.github.com/ramananbalakrishnan/be74b96ab1700114493a"><code class="highlighter-rouge">git-multi-status</code></a>. The small script searches through folders, runs a few git commands to update your repositories and reports on their status.</p>
+
+<p><img src="/assets/images/git-multi-status/gms.gif" alt="gms" /></p>
+
+<p>It is of-course a very simple script which looks for <code class="highlighter-rouge">.git</code> folders and afew particular keywords that turn up when running <code class="highlighter-rouge">git status</code>. But this simplicity is part of what we like in its operation - the labels <code class="highlighter-rouge">Untracked</code>, <code class="highlighter-rouge">Modified</code>, <code class="highlighter-rouge">Staged</code>, <code class="highlighter-rouge">Unpushed</code>, <code class="highlighter-rouge">Unmerged</code> and <code class="highlighter-rouge">Up-to-date</code> provide just enough information to be processed at a glance.</p>
+
+<p>Some notes:</p>
+
+<ul>
+  <li>The script is based on a <a href="https://gist.github.com/jcordasc/389478">gist by jcordasc</a>.</li>
+  <li>BSD / OS X users might experience difficulties because the <code class="highlighter-rouge">find</code> command in  this script was written for use with GNU find</li>
+</ul>
+
+<blockquote>
+  <p>originally appeared in the <a href="https://engineering.semantics3.com/2016/05/22/ssh-local-port-forwarding/">Engineering@Semantics3</a> blog</p>
+</blockquote>
+
+        </section>
+        <footer class="post-footer">
+          <section class="share">
+            
+              
+                <a class="icon-twitter" href="http://twitter.com/share?text=Towards+a+prettier+git+status&amp;url=https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status"
+                  onclick="window.open(this.href, 'twitter-share', 'width=550,height=255');return false;">
+                <i class="fa fa-twitter"></i><span class="hidden">twitter</span>
+                </a>
+              
+            
+              
+            
+          </section>
+        </footer>
+        <div class="bottom-teaser cf">
+          <div class="isLeft">
+            <h5 class="index-headline featured"><span>Written by</span></h5>
+            <section class="author">
+              <div class="author-image" style="background-image: url(https://avatars2.githubusercontent.com/u/8701515)">Blog Logo</div>
+              <h4>Ramanan Balakrishnan</h4>
+              <p class="bio"></p>
+              <hr>
+              <p class="published">Published <time datetime="2016-06-05 00:00">05 Jun 2016</time></p>
+            </section>
+          </div>
+          
+          <div class="isRight">
+          </div>
+        </div>
+        
+          <div id="disqus_thread"></div>
+<script defer>
+    var disqus_config = function () {
+    this.page.url = 'https://ramananbalakrishnan.github.io/2016/06/05/git-multi-status/';
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//ramananbalakrishnan.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        
+      </article>
+    </main>
+    <div class="bottom-closer">
+      <div class="background-closer-image"  style="background-image: url(/assets/images/cover.jpg)">
+        Image
+      </div>
+      <div class="inner">
+        <h1 class="blog-title">A place on the web</h1>
+        <h2 class="blog-description">things I talk about</h2>
+        <a href="/" class="btn">Back to Overview</a>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/assets/js/index.js"></script>
+<script>
+(function ($) {
+  "use strict";
+  $(document).ready(function(){
+
+    var $window = $(window),
+    $image = $('.post-image-image, .teaserimage-image');
+    
+      $window.on('scroll', function() {
+        var top = $window.scrollTop();
+
+        if (top < 0 || top > 1500) { return; }
+        $image
+          .css('transform', 'translate3d(0px, '+top/3+'px, 0px)')
+          .css('opacity', 1-Math.max(top/700, 0));
+      });
+      $window.trigger('scroll');
+
+      var height = $('.article-image').height();
+      $('.post-content').css('padding-top', height + 'px');
+
+      $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+         && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({ scrollTop: target.offset().top }, 500);
+            return false;
+          }
+        }
+      });
+
+  });
+}(jQuery));
+</script>
+
+
+  </body>
+</html>
